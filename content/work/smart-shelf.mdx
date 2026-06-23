@@ -1,0 +1,63 @@
+## Overview
+
+Smart Shelf started as a question: what would inventory management look like if
+it were built for the corner store, not the warehouse? Most tools in this space
+are bloated enterprise software. I wanted something a small business owner could
+open on their phone and understand in thirty seconds.
+
+<Stats items={[
+  { value: "30s", label: "to first value" },
+  { value: "1", label: "daily summary" },
+  { value: "0", label: "spreadsheets" },
+]} />
+
+## The problem
+
+Small retailers track stock in their head, in notebooks, or in spreadsheets
+nobody updates. The result is always the same: items run out silently, or money
+sits frozen in shelves full of things that don't sell.
+
+The real problem isn't counting — it's **knowing what to pay attention to**. So
+the product centers on signals, not spreadsheets:
+
+- Low-stock alerts before you run out, not after
+- "Dead stock" flags for items that haven't moved in weeks
+- A single daily summary instead of a dashboard you dig through
+
+<Callout label="insight">
+The hardest part wasn't building inventory tracking — it was deciding what
+*not* to build. Every screen I cut made the product clearer.
+</Callout>
+
+## Technical decisions
+
+A few choices shaped the build.
+
+**Server-first with Next.js App Router.** Inventory data is read far more than
+written, so server components keep the initial load fast and the client bundle
+small.
+
+**Supabase with Row Level Security.** Each store only ever sees its own data,
+enforced at the database level rather than in app code — which is exactly where
+that kind of rule belongs.
+
+**Optimistic updates on the client.** When you mark an item restocked, the UI
+reflects it instantly and reconciles with the server in the background. Stock
+counting should feel as fast as thinking.
+
+<Figure
+  src="/projects/smart-shelf-dashboard.png"
+  alt="Smart Shelf dashboard showing low-stock alerts"
+  caption="The daily summary — the only screen most users ever need"
+/>
+
+## What I learned
+
+This was my first project pushing Supabase RLS beyond the basics, and it
+reframed how I think about where logic should live. Moving authorization into
+the database — instead of scattering checks across the app — made the whole
+thing simpler and safer at once.
+
+> Build the thing that answers a question, not the thing that stores data.
+
+That line ended up guiding every feature decision after it.

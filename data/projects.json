@@ -1,0 +1,43 @@
+[
+  {
+    "slug": "ascent-academy",
+    "title": "Ascent Academy",
+    "description": "Online learning platform for aspiring developers.",
+    "year": 2026,
+    "stack": ["Next.js", "Tailwind", "Supabase"],
+    "status": "building",
+    "icon": "/works/icon-ascentacademy.png"
+  },
+  {
+    "slug": "parisi-dev",
+    "title": "parisi.dev",
+    "description": "This site — a personal platform treated as a real product, with a public changelog.",
+    "year": 2026,
+    "stack": ["Next.js", "Tailwind", "Supabase"],
+    "status": "building",
+    "featured": true,
+    "icon": "/works/icon-parisidev.png",
+    "repoUrl": "https://github.com/pedroparisii"
+  },
+  {
+    "slug": "smart-shelf",
+    "title": "Smart Shelf",
+    "description": "Inventory platform that helps small businesses track stock with smart alerts.",
+    "year": 2026,
+    "stack": ["Next.js", "Supabase", "TypeScript"],
+    "status": "shipped",
+    "featured": true,
+    "image": "/smartshelf-preview.png",
+    "icon": "/works/icon-smartshelf.png",
+    "hasPage": true
+  },
+  {
+    "slug": "minimal-notes",
+    "title": "Minimal Notes",
+    "description": "Minimal markdown notes app with local-first sync.",
+    "year": 2025,
+    "stack": ["React", "IndexedDB"],
+    "status": "shipped",
+    "icon": "/works/icon-minimalnotes.png"
+  }
+]
