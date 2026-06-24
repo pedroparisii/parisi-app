@@ -2,9 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import projects from "@/data/projects.json";
-import { statusConfig, type Project } from "@/lib/projects";
 import { ArrowRight } from "lucide-react";
+import projectsData from "@/data/projects.json";
+import { statusConfig, type Project } from "@/lib/projects";
+
+const projects = projectsData as Project[];
 
 export const metadata = {
   title: "Work — Pedro Parisi",
@@ -13,7 +15,6 @@ export const metadata = {
 
 export default function WorkPage() {
   const featured = projects.filter((p) => p.featured);
-  const rest = projects.filter((p) => !p.featured);
   const shippedCount = projects.filter((p) => p.status === "shipped").length;
 
   return (
