@@ -1,7 +1,7 @@
 [
   {
-    "slug": "parisi-dev",
-    "title": "parisi.dev",
+    "slug": "parisi-app",
+    "title": "pedroparisi.dev",
     "description": "A personal platform treated as a real product, with a public changelog.",
     "year": 2026,
     "stack": [
@@ -9,11 +9,11 @@
       "Tailwind",
       "Supabase"
     ],
-    "status": "building",
+    "status": "shipped",
     "icon": "/works/icon-parisidev.png",
     "repoUrl": "https://github.com/pedroparisii/parisi-app",
-    "liveUrl": "https://parisi-app.vercel.app/",
-    "featured": true
+    "liveUrl": "https://pedroparisi.dev/",
+    "featured": false
   },
   {
     "slug": "smart-shelf",
