@@ -12,7 +12,7 @@
   {
     "slug": "smart-shelf",
     "title": "Smart Shelf",
-    "description": "Inventory platform that helps small businesses track stock with smart alerts.",
+    "description": "Discover, organize and track your reading journey.",
     "year": 2026,
     "stack": ["React", "Vite", "Supabase", "Javascript"],
     "status": "shipped",
