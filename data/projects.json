@@ -2,19 +2,30 @@
   {
     "slug": "parisi-dev",
     "title": "parisi.dev",
-    "description": "This site — a personal platform treated as a real product, with a public changelog.",
+    "description": "A personal platform treated as a real product, with a public changelog.",
     "year": 2026,
-    "stack": ["Next.js", "Tailwind", "Supabase"],
+    "stack": [
+      "Next.js",
+      "Tailwind",
+      "Supabase"
+    ],
     "status": "building",
     "icon": "/works/icon-parisidev.png",
-    "repoUrl": "https://github.com/pedroparisii/parisi-app"
+    "repoUrl": "https://github.com/pedroparisii/parisi-app",
+    "liveUrl": "https://parisi-app.vercel.app/",
+    "featured": true
   },
   {
     "slug": "smart-shelf",
     "title": "Smart Shelf",
     "description": "Discover, organize and track your reading journey.",
     "year": 2026,
-    "stack": ["React", "Vite", "Supabase", "Javascript"],
+    "stack": [
+      "React",
+      "Vite",
+      "Supabase",
+      "Javascript"
+    ],
     "status": "shipped",
     "featured": true,
     "image": "/works/smart-shelf.png",
@@ -29,7 +40,10 @@
     "title": "Minimal Notes",
     "description": "Minimal markdown notes app with local-first sync.",
     "year": 2025,
-    "stack": ["React", "Tiptap"],
+    "stack": [
+      "React",
+      "Tiptap"
+    ],
     "status": "shipped",
     "icon": "/works/icon-minimalnotes.png",
     "repoUrl": "https://github.com/pedroparisii/minimal-notes"
