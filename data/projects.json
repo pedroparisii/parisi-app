@@ -1,17 +1,5 @@
 [
   {
-    "slug": "ascent-academy",
-    "title": "Ascent Academy",
-    "description": "Online learning platform for aspiring developers.",
-    "year": 2026,
-    "stack": ["Next.js", "Tailwind", "Supabase"],
-    "status": "building",
-    "icon": "/works/icon-ascentacademy.png",
-    "image": "/works/ascent-academy.png",
-    "featured": true,
-    "hasPage": true
-  },
-  {
     "slug": "parisi-dev",
     "title": "parisi.dev",
     "description": "This site — a personal platform treated as a real product, with a public changelog.",
