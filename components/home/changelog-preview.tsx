@@ -9,7 +9,6 @@ interface ChangelogEntry {
   text: string;
 }
 
-// TODO: fetch latest 3 entries from Supabase, ordered by date desc
 const entries: ChangelogEntry[] = [
   { type: "new", text: "Added dedicated project pages" },
   { type: "improvement", text: "Refined the header interactions" },
@@ -30,7 +29,7 @@ const typeLabel: Record<ChangeType, string> = {
 
 export function ChangelogPreview() {
   return (
-    <BentoCard href="/changelog" label="~/changelog" interactive>
+    <BentoCard label="~/changelog">
       <ul className="flex flex-col gap-3">
         {entries.map((entry, i) => (
           <li key={i} className="flex items-start gap-2.5">

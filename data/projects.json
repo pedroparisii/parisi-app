@@ -6,7 +6,10 @@
     "year": 2026,
     "stack": ["Next.js", "Tailwind", "Supabase"],
     "status": "building",
-    "icon": "/works/icon-ascentacademy.png"
+    "icon": "/works/icon-ascentacademy.png",
+    "image": "/works/ascent-academy.png",
+    "featured": true,
+    "hasPage": true
   },
   {
     "slug": "parisi-dev",
@@ -15,20 +18,22 @@
     "year": 2026,
     "stack": ["Next.js", "Tailwind", "Supabase"],
     "status": "building",
-    "featured": true,
     "icon": "/works/icon-parisidev.png",
-    "repoUrl": "https://github.com/pedroparisii"
+    "repoUrl": "https://github.com/pedroparisii/parisi-app"
   },
   {
     "slug": "smart-shelf",
     "title": "Smart Shelf",
     "description": "Inventory platform that helps small businesses track stock with smart alerts.",
     "year": 2026,
-    "stack": ["Next.js", "Supabase", "TypeScript"],
+    "stack": ["React", "Vite", "Supabase", "Javascript"],
     "status": "shipped",
     "featured": true,
-    "image": "/smartshelf-preview.png",
+    "image": "/works/smart-shelf.png",
+    "preview": "/works/smartshelf-preview.png",
     "icon": "/works/icon-smartshelf.png",
+    "repoUrl": "https://github.com/pedroparisii/smart-shelf",
+    "liveUrl": "https://smart-shelf-zeta.vercel.app/",
     "hasPage": true
   },
   {
@@ -36,8 +41,9 @@
     "title": "Minimal Notes",
     "description": "Minimal markdown notes app with local-first sync.",
     "year": 2025,
-    "stack": ["React", "IndexedDB"],
+    "stack": ["React", "Tiptap"],
     "status": "shipped",
-    "icon": "/works/icon-minimalnotes.png"
+    "icon": "/works/icon-minimalnotes.png",
+    "repoUrl": "https://github.com/pedroparisii/minimal-notes"
   }
 ]

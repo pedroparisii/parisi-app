@@ -1,63 +1,62 @@
 ## Overview
 
-Smart Shelf started as a question: what would inventory management look like if
-it were built for the corner store, not the warehouse? Most tools in this space
-are bloated enterprise software. I wanted something a small business owner could
-open on their phone and understand in thirty seconds.
+Smart Shelf is a full-stack book tracking web app inspired by Goodreads. It was built to practice real-world architecture, backend integration, API consumption, and authenticated user data.
+
+The project allows users to discover new books, organize their personal shelves, and seamlessly track their reading journey.
 
 <Stats items={[
-  { value: "30s", label: "to first value" },
-  { value: "1", label: "daily summary" },
-  { value: "0", label: "spreadsheets" },
+  { value: "Real-time", label: "Book Search" },
+  { value: "Open Library", label: "API integration" },
+  { value: "100%", label: "Clean Architecture" },
 ]} />
 
-## The problem
+## Features
 
-Small retailers track stock in their head, in notebooks, or in spreadsheets
-nobody updates. The result is always the same: items run out silently, or money
-sits frozen in shelves full of things that don't sell.
+The product was designed with a strong focus on user experience and proper data:
 
-The real problem isn't counting — it's **knowing what to pay attention to**. So
-the product centers on signals, not spreadsheets:
+- 🔍 **Book Search** — Real-time search with URL parameters, shareable links, and server-side sorting.
+- 📚 **Personal Shelf** — Save books with Reading, Saved, or Read status.
+- 📝 **Notes** — Write and persist custom notes per book.
+- 📊 **Reading Stats** — Track your annual goal and reading progress.
+- 🏆 **Achievements** — Unlock badges based on your real reading activity.
+- 🔐 **Authentication** — Email/password signup with a multi-step onboarding flow.
+- 🌙 **Dark / Light mode** — Visual preference persisted across sessions.
 
-- Low-stock alerts before you run out, not after
-- "Dead stock" flags for items that haven't moved in weeks
-- A single daily summary instead of a dashboard you dig through
-
-<Callout label="insight">
-The hardest part wasn't building inventory tracking — it was deciding what
-*not* to build. Every screen I cut made the product clearer.
+<Callout label="Data Source">
+All book data is sourced from the [Open Library API](https://openlibrary.org/developers/api), a free and open catalog maintained by the Internet Archive.
 </Callout>
 
-## Technical decisions
+## Tech Stack & Architecture
 
-A few choices shaped the build.
+<div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="TailwindCSS" />
+  <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
+  <img src="https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=white" alt="shadcn/ui" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white" alt="React Router" />
+</div>
 
-**Server-first with Next.js App Router.** Inventory data is read far more than
-written, so server components keep the initial load fast and the client bundle
-small.
+The project follows a clean separation of concerns structured across three core layers:
 
-**Supabase with Row Level Security.** Each store only ever sees its own data,
-enforced at the database level rather than in app code — which is exactly where
-that kind of rule belongs.
+- **`src/lib/`** — API clients and database queries (`openLibrary.js`, `userBooks.js`, `supabase.js`).
+- **`src/hooks/`** — All global and reactive state logic (`useBookSearch`, `useAuth`, `useProfile`, `useUserBook`).
+- **`src/pages/` + `src/components/`** — Pure UI layer, kept entirely free of complex business logic.
 
-**Optimistic updates on the client.** When you mark an item restocked, the UI
-reflects it instantly and reconciles with the server in the background. Stock
-counting should feel as fast as thinking.
+To optimize performance, search results are cached in memory to minimize external API overhead. Additionally, book metadata is cached in Supabase once saved to a user's shelf, avoiding repeated third-party requests.
 
 <Figure
-  src="/projects/smart-shelf-dashboard.png"
-  alt="Smart Shelf dashboard showing low-stock alerts"
-  caption="The daily summary — the only screen most users ever need"
+  src={"/works/smartshelf-preview2.png"}
+  alt="Smart Shelf Preview"
+  caption="User profile page with achievements, goals and more..."
 />
 
-## What I learned
+## Challenges & Learning
 
-This was my first project pushing Supabase RLS beyond the basics, and it
-reframed how I think about where logic should live. Moving authorization into
-the database — instead of scattering checks across the app — made the whole
-thing simpler and safer at once.
+As my first published full-stack project, handling end-to-end development introduced me to real-world infrastructure problems:
 
-> Build the thing that answers a question, not the thing that stores data.
+**Postgres Permissions & Supabase RLS:** During development, queries from authenticated users were throwing a `403 Forbidden` error despite sending valid auth tokens. I discovered that the issue stemmed from missing explicit `GRANT` permissions on the database's `authenticated` role, which operates alongside Row Level Security (RLS) policies. Figuring this out provided me with a solid foundation in database-level security.
 
-That line ended up guiding every feature decision after it.
+**Mid-Project API Migration:** I initially integrated the Google Books API. However, it returned an overwhelming amount of low-quality results (such as legal documents and academic papers) and lacked a reliable popularity signal. I migrated to the **Open Library API**, leveraging their `readinglog_count` metric and native sort parameters, which drastically improved the search relevance and overall product quality.
+
+> AI was utilized throughout the project as a pair programming companion for architectural decisions and code reviews. However, all product decisions, UI/UX design, and final implementation were executed independently.

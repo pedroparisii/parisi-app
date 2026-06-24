@@ -17,7 +17,7 @@ export default function WorkPage() {
   const shippedCount = projects.filter((p) => p.status === "shipped").length;
 
   return (
-    <main className="mx-auto max-w-7xl px-6 sm:px-8 pb-24">
+    <main className="max-w-7xl px-6 sm:px-8 md:mx-auto">
 
       <section className="pt-16 pb-12 ">
         <p className="mb-5 font-mono text-sm text-primary">
@@ -79,31 +79,33 @@ function StatusBadge({ status }: { status: Project["status"] }) {
 }
 
 function FeaturedCard({ project }: { project: Project }) {
+  const href = project.hasPage ? `/work/${project.slug}` : project.repoUrl;
+  if (!href) { return null; }
   return (
     <Link
-      href={`/work/${project.slug}`}
-      className="group relative max-w-2xl flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-colors hover:border-foreground/20"
+      href={href}
+      className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-colors hover:border-foreground/20"
     >
       {/* Preview */}
       <div className="relative aspect-video border-b border-border bg-muted/30">
-        {project.image ? (
+        {project.preview ? (
           <Image
-            src={project.image}
+            src={project.preview}
             alt={`${project.title} preview`}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           />
-        ) : (
+        ) : project.icon ? (
           <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
             <Image
               src={project.icon}
               alt={`${project.title} icon`}
-              width={640}
-              height={640}
-              className="shrink-0 rounded-md w-25"
+              width={96}
+              height={96}
+              className="shrink-0 rounded-md w-24"
             />
           </div>
-        )}
+        ) : null}
       </div>
 
       <div className="flex flex-1 flex-col p-6">
@@ -138,10 +140,12 @@ function FeaturedCard({ project }: { project: Project }) {
 }
 
 function ProjectRow({ project }: { project: Project }) {
+  const href = project.hasPage ? `/work/${project.slug}` : project.repoUrl;
+  if (!href) { return null; }
   return (
     <li>
       <Link
-        href={`/work/${project.slug}`}
+        href={href}
         className="group flex items-center gap-4 py-5 transition-colors hover:bg-card/50 sm:gap-6 sm:px-4"
       >
         <span className="shrink-0 font-mono text-xs text-muted-foreground">

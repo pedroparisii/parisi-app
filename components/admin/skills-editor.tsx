@@ -5,8 +5,23 @@ import { saveSkills } from "@/lib/admin-actions";
 import type { Skill, SkillStatus } from "@/lib/skills";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Plus, X, Check } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const STATUSES: SkillStatus[] = ["mastering", "learning", "next"];
+
+const statusDot: Record<SkillStatus, string> = {
+  mastering: "bg-foreground/70",
+  learning: "bg-primary",
+  next: "bg-muted-foreground/40",
+};
 
 export function SkillsEditor({ initial }: { initial: Skill[] }) {
   const [skills, setSkills] = useState<Skill[]>(initial);
@@ -39,55 +54,70 @@ export function SkillsEditor({ initial }: { initial: Skill[] }) {
   }
 
   return (
-    <section className="rounded-xl border border-border bg-card p-5">
-      <div className="mb-4 flex items-center justify-between">
-        <p className="font-mono text-sm text-muted-foreground">~/skills</p>
-        <Button onClick={add} size="sm" variant="outline">
-          + add
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        <p className="font-mono text-sm text-muted-foreground">
+          {skills.length} skills
+        </p>
+        <Button onClick={add} size="sm" variant="outline" className="gap-1.5">
+          <Plus className="size-3.5" />
+          add skill
         </Button>
       </div>
 
       <ul className="space-y-2">
         {skills.map((skill, i) => (
-          <li key={i} className="flex items-center gap-2">
+          <li
+            key={i}
+            className="flex items-center gap-3 rounded-lg border border-border bg-card px-3 py-2.5"
+          >
+            <span className={cn("size-1.5 shrink-0 rounded-full", statusDot[skill.status])} />
+
             <Input
               value={skill.name}
               onChange={(e) => update(i, { name: e.target.value })}
               placeholder="skill name"
-              className="flex-1"
+              className="h-9 flex-1 border-0 bg-transparent px-2 shadow-none focus-visible:ring-0"
             />
-            <select
+
+            <Select
               value={skill.status}
-              onChange={(e) => update(i, { status: e.target.value as SkillStatus })}
-              className="h-9 rounded-md border border-border bg-background px-2 font-mono text-xs"
+              onValueChange={(v) => update(i, { status: v as SkillStatus })}
             >
-              {STATUSES.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
+              <SelectTrigger className="h-8 w-32 font-mono text-xs">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {STATUSES.map((s) => (
+                  <SelectItem key={s} value={s} className="font-mono text-xs">
+                    {s}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
             <button
               onClick={() => remove(i)}
-              className="px-2 font-mono text-xs text-muted-foreground hover:text-destructive"
-              aria-label="remove"
+              className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
+              aria-label="remove skill"
             >
-              ✕
+              <X className="size-4" />
             </button>
           </li>
         ))}
       </ul>
 
-      <div className="mt-4 flex items-center gap-3">
-        <Button onClick={save} disabled={saving} size="sm">
-          {saving ? "committing…" : "save"}
+      <div className="flex items-center gap-3 pt-1">
+        <Button onClick={save} disabled={saving} size="sm" className="gap-1.5">
+          {saving ? "committing…" : "save changes"}
         </Button>
         {saved && (
-          <span className="font-mono text-xs text-emerald-400">
-            ✓ committed
+          <span className="inline-flex items-center gap-1 font-mono text-xs text-emerald-400">
+            <Check className="size-3.5" />
+            committed to github
           </span>
         )}
       </div>
-    </section>
+    </div>
   );
 }

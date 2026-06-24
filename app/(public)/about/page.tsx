@@ -12,12 +12,10 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <main className="mx-auto max-w-3xl px-6 sm:px-8 pb-24">
-      {/* Terminal eyebrow */}
       <p className="pt-14 pb-8 font-mono text-sm text-primary ">
         <span className="text-muted-foreground">~/</span>about-me
       </p>
 
-      {/* Profile row */}
       <ProfileHeader />
       <Separator  className="my-8"/>      
 

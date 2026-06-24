@@ -24,7 +24,6 @@ export function ProfileHeader() {
   return (
     <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex items-center gap-4">
-        {/* Avatar + live status */}
         <div className="relative shrink-0">
           <Avatar className="size-24 border border-border">
             <AvatarImage src="/me.png" alt={profile.name} />
@@ -35,7 +34,6 @@ export function ProfileHeader() {
           />
         </div>
 
-        {/* Identity */}
         <div>
           <h1 className="text-2xl font-medium tracking-tight">
             {profile.name}
@@ -46,7 +44,6 @@ export function ProfileHeader() {
         </div>
       </div>
 
-      {/* Social actions */}
       <div className="flex items-center gap-1.5">
         {socials.map((social) => {
           const Icon = social.icon;

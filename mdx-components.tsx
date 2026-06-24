@@ -3,12 +3,10 @@ import { Callout, Stats, Figure } from "@/components/work/case-study-components"
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    // custom components — usable in any .mdx without importing
     Callout,
     Stats,
     Figure,
 
-    // styled markdown elements
     h2: (props) => (
       <h2
         className="group mt-14 mb-3 scroll-mt-28 text-xl font-medium tracking-tight"

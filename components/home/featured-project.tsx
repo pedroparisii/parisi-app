@@ -1,33 +1,33 @@
+"use client";
 import { BentoCard } from "./bento-card";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
+import projectsData from "@/data/projects.json";
+import { type Project } from "@/lib/projects";
 
-// TODO: replace with data fetched from Supabase (your most recent / pinned project)
-const featured = {
-  slug: "example-project",
-  title: "Featured project",
-  description:
-    "A larger card with a visual preview, the stack, and a link to the dedicated project page.",
-  stack: ["Next.js", "Supabase", "TypeScript"],
-};
+import { useState } from "react";
+
+const featuredProjects = (projectsData as Project[]).filter((p) => p.featured);
 
 export function FeaturedProject() {
+  const [featured] = useState( () => featuredProjects[Math.floor(Math.random() * featuredProjects.length)] );
   return (
     <BentoCard
-      href={`/work/${featured.slug}`}
+      href={featured.hasPage ? `/work/${featured.slug}` : (featured.repoUrl ?? "#")}
       label="~/featured-project"
       interactive
       className="min-h-65"
     >
+      {featured.image && (
+        <Image
+          className="my-3 w-40"
+          src={featured.image}
+          alt={featured.title}
+          width={200}
+          height={200}
+        />
+      )}
 
-      <Image
-        className="my-3 w-40"
-        src="/smart-shelf.png"
-        alt="Project"
-        width={150}
-        height={50}
-      />
-      
       <div>
         <h2 className="text-lg font-medium">{featured.title}</h2>
         <p className="mt-1.5 max-w-md text-sm leading-relaxed text-muted-foreground">

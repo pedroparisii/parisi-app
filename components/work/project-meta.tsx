@@ -1,11 +1,9 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { statusConfig, type Project } from "@/lib/projects";
+import { FaGithub } from "react-icons/fa";
+import { HiOutlineStatusOnline } from "react-icons/hi";
 
-/**
- * The "spec sheet" — a sticky sidebar that travels with the reader,
- * acting as a persistent reference for the project's facts.
- */
 export function ProjectMeta({ project }: { project: Project }) {
   const status = statusConfig[project.status];
 
@@ -63,20 +61,15 @@ export function ProjectMeta({ project }: { project: Project }) {
           <div className="mt-5 flex flex-col gap-2 border-t border-border pt-4">
             {project.liveUrl && (
               <Button asChild size="sm" className="w-full">
-                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                  live demo →
+                <a href={project.liveUrl} target="_blank">
+                  live demo <HiOutlineStatusOnline className="ml-1" />
                 </a>
               </Button>
             )}
             {project.repoUrl && (
-              <Button
-                asChild
-                size="sm"
-                variant="outline"
-                className="w-full"
-              >
-                <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">
-                  source code
+              <Button asChild size="sm" variant="outline" className="w-full">
+                <a href={project.repoUrl} target="_blank" >
+                  source code <FaGithub className="ml-1" />
                 </a>
               </Button>
             )}

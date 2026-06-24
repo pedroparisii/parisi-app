@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-/** A thin reading-progress bar fixed under the header. */
 export function ReadingProgress() {
   const [progress, setProgress] = useState(0);
 

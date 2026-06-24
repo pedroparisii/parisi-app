@@ -10,7 +10,7 @@ const navItems = [
 
 const socials = [
   { icon: SiGithub, href: "https://github.com/pedroparisii", label: "GitHub" },
-  { icon: SiX, href: "https://x.com/", label: "X" },
+  { icon: SiX, href: "https://x.com/pedrovrparisi", label: "X" },
   { icon: BsLinkedin, href: "https://linkedin.com/in/pedroparisi", label: "LinkedIn" },
 ];
 
@@ -31,20 +31,7 @@ export default function Footer() {
           <p className="font-mono text-xs text-muted-foreground">
             built from scratch
           </p>
-        </div> 
-
-        {/* <nav className="flex items-center gap-6">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="group relative font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {item.label}
-              <span className="absolute -bottom-1 left-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full" />
-            </Link>
-          ))}
-        </nav> */}
+        </div>
 
         <div className="flex items-center gap-5">
           {socials.map(({ icon: Icon, href, label }) => (
@@ -54,7 +41,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
-              className="text-muted-foreground hover:text-[#333333] transition-colors duration-300"
+              className="text-muted-foreground hover:text-primary transition-colors duration-300"
             >
               <Icon className="h-4 w-4" />
             </a>

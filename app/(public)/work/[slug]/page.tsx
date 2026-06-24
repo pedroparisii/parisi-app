@@ -4,7 +4,6 @@ import Link from "next/link";
 import projectsData from "@/data/projects.json";
 import { statusConfig, type Project } from "@/lib/projects";
 import { ProjectMeta } from "@/components/work/project-meta";
-import { ProjectNav } from "@/components/work/project-nav";
 import { ReadingProgress } from "@/components/work/reading-progress";
 import { ArrowLeft } from "lucide-react";
 
@@ -28,11 +27,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProjectPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function ProjectPage({ params, }: { params: Promise<{ slug: string }>; }) {
+  
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
   if (!project || !project.hasPage) notFound();
@@ -85,10 +81,10 @@ export default async function ProjectPage({
         </header>
 
         {/* Hero image — full width */}
-        {project.image && (
+        {project.preview && (
           <div className="relative mt-10 aspect-2/1 overflow-hidden rounded-xl border border-border bg-muted/30">
             <Image
-              src={project.image}
+              src={project.preview}
               alt={`${project.title} preview`}
               fill
               sizes="(min-width: 1024px) 1024px, 100vw"
@@ -102,9 +98,7 @@ export default async function ProjectPage({
         <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_280px]">
           <article className="min-w-0 max-w-2xl">
             <Content />
-            <ProjectNav current={project} />
           </article>
-
           <ProjectMeta project={project} />
         </div>
       </main>

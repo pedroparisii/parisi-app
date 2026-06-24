@@ -5,8 +5,25 @@ import { saveProjects } from "@/lib/admin-actions";
 import type { Project, ProjectStatus } from "@/lib/projects";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ChevronRight, Plus, X, Check, Star } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const STATUSES: ProjectStatus[] = ["building", "shipped", "archived"];
+
+const statusDot: Record<ProjectStatus, string> = {
+  shipped: "bg-emerald-400",
+  building: "bg-amber-400",
+  archived: "bg-muted-foreground/50",
+};
 
 function emptyProject(): Project {
   return {
@@ -38,6 +55,7 @@ export function ProjectsEditor({ initial }: { initial: Project[] }) {
 
   function remove(i: number) {
     setProjects((p) => p.filter((_, idx) => idx !== i));
+    if (open === i) setOpen(null);
     setSaved(false);
   }
 
@@ -52,156 +70,192 @@ export function ProjectsEditor({ initial }: { initial: Project[] }) {
   }
 
   return (
-    <section className="rounded-xl border border-border bg-card p-5">
-      <div className="mb-4 flex items-center justify-between">
-        <p className="font-mono text-sm text-muted-foreground">~/projects</p>
-        <Button onClick={add} size="sm" variant="outline">
-          + add
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        <p className="font-mono text-sm text-muted-foreground">
+          {projects.length} projects
+        </p>
+        <Button onClick={add} size="sm" variant="outline" className="gap-1.5">
+          <Plus className="size-3.5" />
+          add project
         </Button>
       </div>
 
       <ul className="space-y-2">
-        {projects.map((project, i) => (
-          <li key={i} className="rounded-lg border border-border">
-            {/* Row header */}
-            <div className="flex items-center gap-2 p-3">
-              <button
-                onClick={() => setOpen(open === i ? null : i)}
-                className="flex flex-1 items-center gap-2 text-left"
-              >
-                <span className="font-mono text-xs text-muted-foreground">
-                  {open === i ? "▾" : "▸"}
-                </span>
-                <span className="font-medium">
-                  {project.title || "(untitled)"}
-                </span>
-                <span className="font-mono text-xs text-muted-foreground">
-                  {project.status}
-                </span>
-              </button>
-              <button
-                onClick={() => remove(i)}
-                className="px-2 font-mono text-xs text-muted-foreground hover:text-destructive"
-                aria-label="remove"
-              >
-                ✕
-              </button>
-            </div>
+        {projects.map((project, i) => {
+          const isOpen = open === i;
+          return (
+            <li
+              key={i}
+              className={cn(
+                "overflow-hidden rounded-lg border bg-card transition-colors",
+                isOpen ? "border-foreground/20" : "border-border",
+              )}
+            >
+              {/* Row header */}
+              <div className="flex items-center gap-3 px-4 py-3">
+                <button
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  className="flex flex-1 items-center gap-3 text-left"
+                >
+                  <ChevronRight
+                    className={cn(
+                      "size-4 shrink-0 text-muted-foreground transition-transform duration-200",
+                      isOpen && "rotate-90",
+                    )}
+                  />
+                  <span className={cn("size-1.5 shrink-0 rounded-full", statusDot[project.status])} />
+                  <span className="font-medium">
+                    {project.title || "untitled project"}
+                  </span>
+                  {project.featured && (
+                    <Star className="size-3 fill-primary text-primary" />
+                  )}
+                </button>
 
-            {/* Expanded fields */}
-            {open === i && (
-              <div className="space-y-2 border-t border-border p-3">
-                <Field label="title">
-                  <Input
-                    value={project.title}
-                    onChange={(e) => update(i, { title: e.target.value })}
-                  />
-                </Field>
-                <Field label="slug">
-                  <Input
-                    value={project.slug}
-                    onChange={(e) => update(i, { slug: e.target.value })}
-                    placeholder="my-project"
-                  />
-                </Field>
-                <Field label="description">
-                  <Input
-                    value={project.description}
-                    onChange={(e) => update(i, { description: e.target.value })}
-                  />
-                </Field>
-                <div className="flex gap-2">
-                  <Field label="year">
+                <Badge variant="secondary" className="font-mono text-[10px] font-normal">
+                  {project.year}
+                </Badge>
+
+                <button
+                  onClick={() => remove(i)}
+                  className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
+                  aria-label="remove project"
+                >
+                  <X className="size-4" />
+                </button>
+              </div>
+
+              {/* Expanded fields */}
+              {isOpen && (
+                <div className="grid gap-4 border-t border-border bg-background/30 p-4 sm:grid-cols-2">
+                  <FormField label="title" className="sm:col-span-2">
+                    <Input
+                      value={project.title}
+                      onChange={(e) => update(i, { title: e.target.value })}
+                      placeholder="Project name"
+                    />
+                  </FormField>
+
+                  <FormField label="slug">
+                    <Input
+                      value={project.slug}
+                      onChange={(e) => update(i, { slug: e.target.value })}
+                      placeholder="my-project"
+                      className="font-mono"
+                    />
+                  </FormField>
+
+                  <FormField label="year">
                     <Input
                       type="number"
                       value={project.year}
                       onChange={(e) => update(i, { year: Number(e.target.value) })}
                     />
-                  </Field>
-                  <Field label="status">
-                    <select
+                  </FormField>
+
+                  <FormField label="description" className="sm:col-span-2">
+                    <Input
+                      value={project.description}
+                      onChange={(e) => update(i, { description: e.target.value })}
+                      placeholder="One-line summary"
+                    />
+                  </FormField>
+
+                  <FormField label="status">
+                    <Select
                       value={project.status}
-                      onChange={(e) =>
-                        update(i, { status: e.target.value as ProjectStatus })
-                      }
-                      className="h-9 w-full rounded-md border border-border bg-background px-2 font-mono text-xs"
+                      onValueChange={(v) => update(i, { status: v as ProjectStatus })}
                     >
-                      {STATUSES.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
-                        </option>
-                      ))}
-                    </select>
-                  </Field>
-                </div>
-                <Field label="stack (comma separated)">
-                  <Input
-                    value={project.stack.join(", ")}
-                    onChange={(e) =>
-                      update(i, {
-                        stack: e.target.value
-                          .split(",")
-                          .map((s) => s.trim())
-                          .filter(Boolean),
-                      })
-                    }
-                  />
-                </Field>
-                <div className="flex gap-2">
-                  <Field label="live url">
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {STATUSES.map((s) => (
+                          <SelectItem key={s} value={s} className="font-mono text-xs">
+                            {s}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormField>
+
+                  <FormField label="stack (comma separated)">
+                    <Input
+                      value={project.stack.join(", ")}
+                      onChange={(e) =>
+                        update(i, {
+                          stack: e.target.value.split(",").map((s) => s.trim()).filter(Boolean),
+                        })
+                      }
+                      placeholder="Next.js, Supabase"
+                    />
+                  </FormField>
+
+                  <FormField label="live url">
                     <Input
                       value={project.liveUrl ?? ""}
                       onChange={(e) => update(i, { liveUrl: e.target.value })}
+                      placeholder="https://..."
+                      className="font-mono text-xs"
                     />
-                  </Field>
-                  <Field label="repo url">
+                  </FormField>
+
+                  <FormField label="repo url">
                     <Input
                       value={project.repoUrl ?? ""}
                       onChange={(e) => update(i, { repoUrl: e.target.value })}
+                      placeholder="https://github.com/..."
+                      className="font-mono text-xs"
                     />
-                  </Field>
+                  </FormField>
+
+                  <label className="flex cursor-pointer items-center gap-2 sm:col-span-2">
+                    <input
+                      type="checkbox"
+                      checked={project.featured ?? false}
+                      onChange={(e) => update(i, { featured: e.target.checked })}
+                      className="size-4 rounded border-border accent-primary"
+                    />
+                    <span className="font-mono text-xs text-muted-foreground">
+                      feature this project on the homepage
+                    </span>
+                  </label>
                 </div>
-                <label className="flex items-center gap-2 pt-1 font-mono text-xs text-muted-foreground">
-                  <input
-                    type="checkbox"
-                    checked={project.featured ?? false}
-                    onChange={(e) => update(i, { featured: e.target.checked })}
-                  />
-                  featured
-                </label>
-              </div>
-            )}
-          </li>
-        ))}
+              )}
+            </li>
+          );
+        })}
       </ul>
 
-      <div className="mt-4 flex items-center gap-3">
-        <Button onClick={save} disabled={saving} size="sm">
-          {saving ? "committing…" : "save"}
+      <div className="flex items-center gap-3 pt-1">
+        <Button onClick={save} disabled={saving} size="sm" className="gap-1.5">
+          {saving ? "committing…" : "save changes"}
         </Button>
         {saved && (
-          <span className="font-mono text-xs text-emerald-400">
-            ✓ committed
+          <span className="inline-flex items-center gap-1 font-mono text-xs text-emerald-400">
+            <Check className="size-3.5" />
+            committed to github
           </span>
         )}
       </div>
-    </section>
+    </div>
   );
 }
 
-function Field({
+function FormField({
   label,
   children,
+  className,
 }: {
   label: string;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
-    <label className="block flex-1">
-      <span className="mb-1 block font-mono text-xs text-muted-foreground">
-        {label}
-      </span>
+    <div className={cn("space-y-1.5", className)}>
+      <Label className="font-mono text-xs text-muted-foreground">{label}</Label>
       {children}
-    </label>
+    </div>
   );
 }

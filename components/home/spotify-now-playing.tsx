@@ -50,7 +50,7 @@ export function SpotifyNowPlaying() {
         <div
           aria-hidden="true"
           className={`pointer-events-none absolute -right-8 -top-8 size-40 blur-2xl transition-opacity duration-700 ${
-            isPlaying ? "opacity-20" : "opacity-10"
+            isPlaying ? "opacity-25" : "opacity-15"
           }`}
         >
           <Image

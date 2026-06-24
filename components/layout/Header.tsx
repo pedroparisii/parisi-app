@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { DiscordAvatar } from "@/components/discord/discord-avatar";
 import { ThemeToggle } from "@/components/layout/theme-toogle";
+import { useTheme } from "next-themes";
+
 
 const navItems = [
   { label: "works", href: "/work" },
@@ -13,6 +15,15 @@ const navItems = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  const iconSrc = !mounted
+  ? "/icon.png"
+  : resolvedTheme === "dark"
+    ? "/icon.png"
+    : "/iconblack.png";
 
   return (
     <div className="sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-border select-none">
@@ -24,7 +35,7 @@ export default function Header() {
             <span className="max-w-0 opacity-0 text-primary transition-all duration-300 group-hover:max-w-4 group-hover:opacity-100 group-hover:mr-1.5">{"{"}</span>
 
             {/* ícone: some no hover */}
-            <Image src="/works/icon-parisidev.png" alt="pedro.parisi" width={64} height={64} className="w-12 transition-all duration-300 group-hover:w-0 group-hover:opacity-0" />
+            <Image src={iconSrc} alt="pedro.parisi" width={64} height={64} className="w-10 transition-all duration-300 group-hover:w-0 group-hover:opacity-0" />
 
             {/* nome: aparece no hover */}
             <div className="flex items-center overflow-hidden max-w-0 opacity-0 transition-all duration-300 group-hover:max-w-40 group-hover:opacity-100">

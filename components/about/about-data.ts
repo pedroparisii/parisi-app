@@ -2,7 +2,7 @@ import type { IconType } from "react-icons";
 import {
   FaGithub,
   FaLinkedin,
-  FaTwitter,
+  FaXTwitter,
   FaInbox,
 } from "react-icons/fa6";
 
@@ -12,8 +12,7 @@ export const profile = {
   location: "Sorocaba, Brazil",
   tagline: "Building things that ship, treating side projects like products.",
   bio: [
-    "I'm a fullstack developer who likes the whole stack — from database schema to the last pixel of a hover state. Most of what I build starts as a question: what would this feel like if it were a real product, not just a demo?",
-    "Right now I'm deep in the Next.js + Supabase world, learning in public and shipping this very site as proof of work. When I'm not coding, you'll probably find me chasing a new framework or over-engineering something small for the fun of it.",
+    "Computer Science student focused on software development, AI, and building meaningful products. Passionate about learning, solving problems, and turning ideas into real-world projects. Fluent in Portuguese and English, currently learning French, and always exploring new technologies."
   ],
 };
 
@@ -47,7 +46,7 @@ export const socials: Social[] = [
     label: "X",
     handle: "@pedrovrparisi",
     href: "https://x.com/pedrovrparisi",
-    icon: FaTwitter,
+    icon: FaXTwitter,
   },
   {
     label: "Email",
