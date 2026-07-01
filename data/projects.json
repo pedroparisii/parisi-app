@@ -1,11 +1,24 @@
 [
   {
+    "slug": "ascent-academy",
+    "title": "Ascent Academy",
+    "description": "A platform for learning and growth.",
+    "year": 2026,
+    "stack": ["Next.js", "Tailwind", "Supabase", "Expo", "React Native"],
+    "status": "building",
+    "featured": true,
+    "image": "/works/ascent-academy.png",
+    "preview": "/works/ascentacademy-preview.png",
+    "icon": "/works/icon-ascentacademy.png",
+    "hasPage": true
+  },
+  {
     "slug": "parisi-dev",
     "title": "parisi.dev",
     "description": "This site — a personal platform treated as a real product, with a public changelog.",
     "year": 2026,
     "stack": ["Next.js", "Tailwind", "Supabase"],
-    "status": "building",
+    "status": "shipped",
     "icon": "/works/icon-parisidev.png",
     "repoUrl": "https://github.com/pedroparisii/parisi-app"
   },
