@@ -1,0 +1,106 @@
+{
+  "Header": {
+    "logoAriaLabel": "pedro.parisi — início",
+    "navWork": "projetos",
+    "navAbout": "sobre mim",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu"
+  },
+  "Footer": {
+    "builtFromScratch": "built from scratch",
+    "allSystemsOperational": "todos os sistemas operacionais"
+  },
+  "Hero": {
+    "titleName": "Pedro Parisi,",
+    "titleMuted": "construindo coisas que realmente saem do papel.",
+    "description": "Não é só um portfólio. Uma plataforma pessoal tratada como um produto de verdade, com changelog, projetos vivos e evolução às claras.",
+    "viewWorks": "ver projetos",
+    "aboutMe": "sobre mim"
+  },
+  "Home": {
+    "highlightsAria": "Destaques"
+  },
+  "Changelog": {
+    "label": "~/changelog",
+    "typeNew": "novo",
+    "typeImprovement": "melh",
+    "typeFix": "corr",
+    "entries": [
+      { "type": "new", "text": "Adicionadas páginas dedicadas de projeto" },
+      { "type": "improvement", "text": "Refinadas as interações do header" },
+      { "type": "fix", "text": "Ajustado o contraste no modo escuro" }
+    ]
+  },
+  "CurrentlyLearning": {
+    "label": "~/currently-learning",
+    "text": "Sempre <em>aprendendo em público</em>, o quadro é atualizado conforme eu avanço."
+  },
+  "LocalTime": {
+    "label": "~/local-time",
+    "text": "Baseado em <em>Sorocaba, Brasil</em> — GMT-3."
+  },
+  "Spotify": {
+    "label": "~/my-spotify",
+    "nowListening": "ouvindo agora",
+    "lastPlayed": "tocada por último",
+    "offline": "offline",
+    "nothingToShow": "Nada para mostrar no momento"
+  },
+  "LanguagesRow": {
+    "iBuildWith": "Eu construo com"
+  },
+  "Discord": {
+    "online": "Online",
+    "idle": "Ausente",
+    "dnd": "Não perturbe",
+    "offline": "Offline"
+  },
+  "ProjectStatus": {
+    "shipped": "lançado",
+    "building": "construindo",
+    "archived": "arquivado"
+  },
+  "Work": {
+    "title": "Projetos",
+    "description": "Projetos com profundidade de verdade... o problema, as decisões, o stack. Não é só print de tela!",
+    "stats": "{count} projetos · {shipped} lançados",
+    "featuredAria": "Projetos em destaque",
+    "moreAria": "Mais projetos"
+  },
+  "WorkSlug": {
+    "back": "voltar"
+  },
+  "ProjectMeta": {
+    "status": "status",
+    "year": "ano",
+    "role": "função",
+    "roleValue": "Desenvolvimento e Design",
+    "stack": "stack",
+    "liveDemo": "demo ao vivo",
+    "sourceCode": "código fonte"
+  },
+  "About": {
+    "heading": "Sobre mim",
+    "role": "Desenvolvedor Fullstack",
+    "location": "Sorocaba, Brasil",
+    "bio": [
+      "Estudante de Ciência da Computação focado em desenvolvimento de software, IA e construção de produtos com propósito. Apaixonado por aprender, resolver problemas e transformar ideias em projetos reais. Fluente em português e inglês, atualmente aprendendo francês, e sempre explorando novas tecnologias."
+    ],
+    "factBasedInLabel": "baseado em",
+    "factBasedInValue": "Brasil",
+    "factWritingLabel": "escrevendo",
+    "factWritingValue": "TypeScript",
+    "factStatusLabel": "status",
+    "factStatusValue": "Disponível para trabalho",
+    "factSinceLabel": "desde",
+    "factSinceValue": "2006",
+    "educationLabel": "~/education",
+    "institution": "UFSCar - Universidade Federal de São Carlos",
+    "course": "Bacharelado em Ciência da Computação",
+    "period": "2026 — 2030"
+  },
+  "NotFound": {
+    "message": "arquivo ou diretório inexistente",
+    "backHome": "voltar para o início"
+  }
+}

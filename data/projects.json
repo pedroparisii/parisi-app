@@ -3,6 +3,7 @@
     "slug": "ascent-academy",
     "title": "Ascent Academy",
     "description": "A platform for learning and growth.",
+    "descriptionPt": "Uma plataforma para aprendizado e crescimento.",
     "year": 2026,
     "stack": ["Next.js", "Tailwind", "Supabase", "Expo", "React Native"],
     "status": "building",
@@ -16,6 +17,7 @@
     "slug": "parisi-dev",
     "title": "parisi.dev",
     "description": "This site — a personal platform treated as a real product, with a public changelog.",
+    "descriptionPt": "Este site — uma plataforma pessoal tratada como um produto de verdade, com changelog público.",
     "year": 2026,
     "stack": ["Next.js", "Tailwind", "Supabase"],
     "status": "shipped",
@@ -28,6 +30,7 @@
     "slug": "smart-shelf",
     "title": "Smart Shelf",
     "description": "Discover, organize and track your reading journey.",
+    "descriptionPt": "Descubra, organize e acompanhe sua jornada de leitura.",
     "year": 2026,
     "stack": [
       "React",
@@ -48,6 +51,7 @@
     "slug": "minimal-notes",
     "title": "Minimal Notes",
     "description": "Minimal markdown notes app with local-first sync.",
+    "descriptionPt": "App minimalista de notas em markdown com sincronização local-first.",
     "year": 2025,
     "stack": [
       "React",

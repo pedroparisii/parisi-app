@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-export default function NotFound() {
+export default async function NotFound() {
+  const t = await getTranslations("NotFound");
   return (
     <main className="flex min-h-[80vh] flex-col items-center justify-center px-6 text-center">
       <p className="font-mono text-sm text-primary">
@@ -14,12 +16,12 @@ export default function NotFound() {
       </h1>
 
       <p className="mt-4 font-mono text-sm text-muted-foreground">
-        no such file or directory
+        {t("message")}
       </p>
 
       <Button asChild variant="outline" className="mt-8 font-mono">
         <Link href="/">
-          back to home
+          {t("backHome")}
           <span aria-hidden="true" className="ml-1">
             <ArrowRight className="h-4 w-4" />
           </span>

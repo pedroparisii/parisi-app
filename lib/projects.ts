@@ -4,6 +4,8 @@ export interface Project {
   slug: string;
   title: string;
   description: string;
+  /** pt-BR translation of `description`. Falls back to `description` when missing. */
+  descriptionPt?: string;
   year: number;
   stack: string[];
   status: ProjectStatus;
@@ -21,3 +23,9 @@ export const statusConfig: Record<ProjectStatus, { label: string; dot: string; p
   building: { label: "building", dot: "bg-amber-400", pulse: true },
   archived: { label: "archived", dot: "bg-muted-foreground/50" },
 };
+
+/** Returns the project description in the given locale, falling back to English. */
+export function getProjectDescription(project: Project, locale: string): string {
+  if (locale === "pt" && project.descriptionPt) return project.descriptionPt;
+  return project.description;
+}

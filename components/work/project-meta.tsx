@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { statusConfig, type Project } from "@/lib/projects";
@@ -5,20 +6,22 @@ import { FaGithub } from "react-icons/fa";
 import { HiOutlineStatusOnline } from "react-icons/hi";
 
 export function ProjectMeta({ project }: { project: Project }) {
+  const t = useTranslations("ProjectMeta");
+  const statusT = useTranslations("ProjectStatus");
   const status = statusConfig[project.status];
 
   const rows: { label: string; value: React.ReactNode }[] = [
     {
-      label: "status",
+      label: t("status"),
       value: (
         <span className="inline-flex items-center gap-1.5">
           <span className={`size-1.5 rounded-full ${status.dot}`} />
-          {status.label}
+          {statusT(project.status)}
         </span>
       ),
     },
-    { label: "year", value: project.year },
-    { label: "role", value: "Design & build" },
+    { label: t("year"), value: project.year },
+    { label: t("role"), value: t("roleValue") },
   ];
 
   return (
@@ -42,7 +45,7 @@ export function ProjectMeta({ project }: { project: Project }) {
 
         {/* Stack */}
         <div className="mt-5 border-t border-border pt-4">
-          <p className="mb-2 font-mono text-xs text-muted-foreground">stack</p>
+          <p className="mb-2 font-mono text-xs text-muted-foreground">{t("stack")}</p>
           <div className="flex flex-wrap gap-1.5">
             {project.stack.map((tech) => (
               <Badge
@@ -62,14 +65,14 @@ export function ProjectMeta({ project }: { project: Project }) {
             {project.liveUrl && (
               <Button asChild size="sm" className="w-full">
                 <a href={project.liveUrl} target="_blank">
-                  live demo <HiOutlineStatusOnline className="ml-1" />
+                  {t("liveDemo")} <HiOutlineStatusOnline className="ml-1" />
                 </a>
               </Button>
             )}
             {project.repoUrl && (
               <Button asChild size="sm" variant="outline" className="w-full">
                 <a href={project.repoUrl} target="_blank" >
-                  source code <FaGithub className="ml-1" />
+                  {t("sourceCode")} <FaGithub className="ml-1" />
                 </a>
               </Button>
             )}

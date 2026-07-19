@@ -1,15 +1,27 @@
+import { getTranslations } from "next-intl/server";
 import { ProfileHeader } from "@/components/about/profile-header";
 import { LanguagesRow } from "@/components/layout/languages-row";
-import { profile, education, facts } from "@/components/about/about-data";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 
-export const metadata = {
-  title: "About — Pedro Parisi",
-  description: "Fullstack developer based in Brazil. Who I am and what I build.",
-};
+export async function generateMetadata() {
+  const t = await getTranslations("About");
+  return {
+    title: "About — Pedro Parisi",
+    description: `${t("role")}. ${t("heading")}.`,
+  };
+}
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const t = await getTranslations("About");
+  const bio = t.raw("bio") as string[];
+  const facts = [
+    { label: t("factBasedInLabel"), value: t("factBasedInValue") },
+    { label: t("factWritingLabel"), value: t("factWritingValue") },
+    { label: t("factStatusLabel"), value: t("factStatusValue") },
+    { label: t("factSinceLabel"), value: t("factSinceValue") },
+  ];
+
   return (
     <main className="mx-auto max-w-3xl px-6 sm:px-8 pb-24">
       <p className="pt-14 pb-8 font-mono text-sm text-primary ">
@@ -17,12 +29,12 @@ export default function AboutPage() {
       </p>
 
       <ProfileHeader />
-      <Separator  className="my-8"/>      
+      <Separator  className="my-8"/>
 
       {/* Bio */}
       <section className=" space-y-4 leading-relaxed text-muted-foreground">
-        <h1 className=" text-lg text-primary leading-relaxed">About me</h1>
-        {profile.bio.map((paragraph, i) => (
+        <h1 className=" text-lg text-primary leading-relaxed">{t("heading")}</h1>
+        {bio.map((paragraph, i) => (
           <p key={i}>{paragraph}</p>
         ))}
       </section>
@@ -50,7 +62,7 @@ export default function AboutPage() {
       {/* Education */}
       <section className="mt-14">
         <h2 className="font-mono text-xs text-muted-foreground">
-          ~/education
+          {t("educationLabel")}
         </h2>
         <div className="mt-3 flex items-baseline justify-between border-t border-border pt-4">
           <div className="flex items-center gap-4">
@@ -62,12 +74,12 @@ export default function AboutPage() {
               className="rounded-lg border border-border"
             />
             <div>
-              <p className="font-medium">{education.institution}</p>
-              <p className="text-sm text-muted-foreground">{education.course}</p>
+              <p className="font-medium">{t("institution")}</p>
+              <p className="text-sm text-muted-foreground">{t("course")}</p>
             </div>
           </div>
           <span className="font-mono text-xs text-muted-foreground">
-            {education.period}
+            {t("period")}
           </span>
         </div>
       </section>

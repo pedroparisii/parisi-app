@@ -1,19 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import projectsData from "@/data/projects.json";
-import { statusConfig, type Project } from "@/lib/projects";
+import { statusConfig, getProjectDescription, type Project } from "@/lib/projects";
 
 const projects = projectsData as Project[];
 
-export const metadata = {
-  title: "Work — Pedro Parisi",
-  description: "Projects built and shipped by Pedro Parisi.",
-};
+export async function generateMetadata() {
+  const t = await getTranslations("Work");
+  return {
+    title: `${t("title")} — Pedro Parisi`,
+    description: t("description"),
+  };
+}
 
-export default function WorkPage() {
+export default async function WorkPage() {
+  const t = await getTranslations("Work");
+  const locale = await getLocale();
   const featured = projects.filter((p) => p.featured);
   const shippedCount = projects.filter((p) => p.status === "shipped").length;
 
@@ -25,33 +32,32 @@ export default function WorkPage() {
           <span className="text-muted-foreground">~/</span>works
         </p>
         <h1 className="text-4xl font-medium tracking-tight sm:text-5xl">
-          Works
+          {t("title")}
         </h1>
         <p className="mt-4 max-w-xl text-muted-foreground">
-          Projects with real depth... the problem, the decisions, the stack.
-          Not just screenshots!
+          {t("description")}
         </p>
         <p className="mt-6 font-mono text-xs text-muted-foreground">
-          {projects.length} projects · {shippedCount} shipped
+          {t("stats", { count: projects.length, shipped: shippedCount })}
         </p>
       </section>
 
       {/* Featured */}
-      <section aria-label="Featured projects" className="grid gap-4 md:grid-cols-2">
+      <section aria-label={t("featuredAria")} className="grid gap-4 md:grid-cols-2">
         {featured.map((project) => (
-          <FeaturedCard key={project.slug} project={project} />
+          <FeaturedCard key={project.slug} project={project} locale={locale} />
         ))}
       </section>
 
       {/* All the rest — compact list */}
 
-        <section aria-label="More projects" className="mt-16">
+        <section aria-label={t("moreAria")} className="mt-16">
           <p className="mb-2 font-mono text-xs text-muted-foreground">
             ~/more
           </p>
           <ul className="divide-y divide-border border-y border-border">
             {projects.map((project) => (
-              <ProjectRow key={project.slug} project={project} />
+              <ProjectRow key={project.slug} project={project} locale={locale} />
             ))}
           </ul>
         </section>
@@ -60,7 +66,8 @@ export default function WorkPage() {
 }
 
 function StatusBadge({ status }: { status: Project["status"] }) {
-  const { label, dot, pulse } = statusConfig[status];
+  const { dot, pulse } = statusConfig[status];
+  const t = useTranslations("ProjectStatus");
   return (
     <span className="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground">
       <span className="relative flex size-1.5">
@@ -74,12 +81,12 @@ function StatusBadge({ status }: { status: Project["status"] }) {
         )}
         <span className={cn("relative inline-flex size-1.5 rounded-full", dot)} />
       </span>
-      {label}
+      {t(status)}
     </span>
   );
 }
 
-function FeaturedCard({ project }: { project: Project }) {
+function FeaturedCard({ project, locale }: { project: Project; locale: string }) {
   const href = project.hasPage ? `/work/${project.slug}` : project.repoUrl;
   if (!href) { return null; }
   return (
@@ -116,7 +123,7 @@ function FeaturedCard({ project }: { project: Project }) {
         </div>
 
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          {project.description}
+          {getProjectDescription(project, locale)}
         </p>
 
         <div className="mt-auto flex items-center justify-between pt-5">
@@ -140,7 +147,7 @@ function FeaturedCard({ project }: { project: Project }) {
   );
 }
 
-function ProjectRow({ project }: { project: Project }) {
+function ProjectRow({ project, locale }: { project: Project; locale: string }) {
   const href = project.hasPage ? `/work/${project.slug}` : project.repoUrl;
   if (!href) { return null; }
   return (
@@ -177,7 +184,7 @@ function ProjectRow({ project }: { project: Project }) {
             <StatusBadge status={project.status} />
           </div>
           <p className="mt-1 truncate text-sm text-muted-foreground">
-            {project.description}
+            {getProjectDescription(project, locale)}
           </p>
         </div>
 

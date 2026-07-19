@@ -154,11 +154,19 @@ export function ProjectsEditor({ initial }: { initial: Project[] }) {
                     />
                   </FormField>
 
-                  <FormField label="description" className="sm:col-span-2">
+                  <FormField label="description (en)" className="sm:col-span-2">
                     <Input
                       value={project.description}
                       onChange={(e) => update(i, { description: e.target.value })}
                       placeholder="One-line summary"
+                    />
+                  </FormField>
+
+                  <FormField label="description (pt-br)" className="sm:col-span-2">
+                    <Input
+                      value={project.descriptionPt ?? ""}
+                      onChange={(e) => update(i, { descriptionPt: e.target.value })}
+                      placeholder="Resumo em uma linha"
                     />
                   </FormField>
 

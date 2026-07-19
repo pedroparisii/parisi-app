@@ -1,0 +1,106 @@
+{
+  "Header": {
+    "logoAriaLabel": "pedro.parisi — home",
+    "navWork": "works",
+    "navAbout": "about me",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "Footer": {
+    "builtFromScratch": "built from scratch",
+    "allSystemsOperational": "all systems operational"
+  },
+  "Hero": {
+    "titleName": "Pedro Parisi — fullstack developer",
+    "titleMuted": "building things that ship.",
+    "description": "Not just a portfolio. A personal platform treated as a real product with a changelog, living projects, and evolution out in the open.",
+    "viewWorks": "view works",
+    "aboutMe": "about me"
+  },
+  "Home": {
+    "highlightsAria": "Highlights"
+  },
+  "Changelog": {
+    "label": "~/changelog",
+    "typeNew": "new",
+    "typeImprovement": "imp",
+    "typeFix": "fix",
+    "entries": [
+      { "type": "new", "text": "Added dedicated project pages" },
+      { "type": "improvement", "text": "Refined the header interactions" },
+      { "type": "fix", "text": "Adjusted contrast in dark mode" }
+    ]
+  },
+  "CurrentlyLearning": {
+    "label": "~/currently-learning",
+    "text": "Always <em>learning in public</em>, the board updates as I go."
+  },
+  "LocalTime": {
+    "label": "~/local-time",
+    "text": "Based in <em>Sorocaba, Brazil</em> — GMT-3."
+  },
+  "Spotify": {
+    "label": "~/my-spotify",
+    "nowListening": "now listening",
+    "lastPlayed": "last played",
+    "offline": "offline",
+    "nothingToShow": "Nothing to show right now"
+  },
+  "LanguagesRow": {
+    "iBuildWith": "I build with"
+  },
+  "Discord": {
+    "online": "Online",
+    "idle": "Idle",
+    "dnd": "Do not disturb",
+    "offline": "Offline"
+  },
+  "ProjectStatus": {
+    "shipped": "shipped",
+    "building": "building",
+    "archived": "archived"
+  },
+  "Work": {
+    "title": "Works",
+    "description": "Projects with real depth... the problem, the decisions, the stack. Not just screenshots!",
+    "stats": "{count} projects · {shipped} shipped",
+    "featuredAria": "Featured projects",
+    "moreAria": "More projects"
+  },
+  "WorkSlug": {
+    "back": "back"
+  },
+  "ProjectMeta": {
+    "status": "status",
+    "year": "year",
+    "role": "role",
+    "roleValue": "Build & design",
+    "stack": "stack",
+    "liveDemo": "live demo",
+    "sourceCode": "source code"
+  },
+  "About": {
+    "heading": "About me",
+    "role": "Fullstack Developer",
+    "location": "Sorocaba, Brazil",
+    "bio": [
+      "Computer Science student focused on software development, AI, and building meaningful products. Passionate about learning, solving problems, and turning ideas into real-world projects. Fluent in Portuguese and English, currently learning French, and always exploring new technologies."
+    ],
+    "factBasedInLabel": "based in",
+    "factBasedInValue": "Brazil",
+    "factWritingLabel": "writing",
+    "factWritingValue": "TypeScript",
+    "factStatusLabel": "status",
+    "factStatusValue": "Open to work",
+    "factSinceLabel": "since",
+    "factSinceValue": "2006",
+    "educationLabel": "~/education",
+    "institution": "UFSCar - Federal University of São Carlos",
+    "course": "B.Sc. Computer Science",
+    "period": "2026 — 2030"
+  },
+  "NotFound": {
+    "message": "no such file or directory",
+    "backHome": "back to home"
+  }
+}

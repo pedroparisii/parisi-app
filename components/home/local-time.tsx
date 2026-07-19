@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { BentoCard, CardText, Em } from "./bento-card";
 import { Clock } from "lucide-react";
 
@@ -16,6 +17,7 @@ function formatTime(date: Date) {
 }
 
 export function LocalTime() {
+  const t = useTranslations("LocalTime");
   const [time, setTime] = useState<string | null>(null);
 
   useEffect(() => {
@@ -27,13 +29,13 @@ export function LocalTime() {
 
   return (
     <BentoCard
-      label="~/local-time"
+      label={t("label")}
       grid
       icon={<Clock />}
       className="min-h-52"
     >
       <CardText>
-        Based in <Em>Sorocaba, Brazil</Em> — GMT-3.
+        {t.rich("text", { em: (chunks) => <Em>{chunks}</Em> })}
       </CardText>
 
       <p

@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { getTranslations, getLocale } from "next-intl/server";
 import projectsData from "@/data/projects.json";
-import { statusConfig, type Project } from "@/lib/projects";
+import { statusConfig, getProjectDescription, type Project } from "@/lib/projects";
 import { ProjectMeta } from "@/components/work/project-meta";
 import { ReadingProgress } from "@/components/work/reading-progress";
 import { ArrowLeft } from "lucide-react";
@@ -21,21 +22,28 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
+  const locale = await getLocale();
   return {
     title: `${project.title} — Pedro Parisi`,
-    description: project.description,
+    description: getProjectDescription(project, locale),
   };
 }
 
 export default async function ProjectPage({ params, }: { params: Promise<{ slug: string }>; }) {
-  
+
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
   if (!project || !project.hasPage) notFound();
 
+  const t = await getTranslations("WorkSlug");
+  const statusT = await getTranslations("ProjectStatus");
+  const locale = await getLocale();
+
   let Content: React.ComponentType;
   try {
-    const mod = await import(`@/content/work/${slug}.mdx`);
+    const mod = locale === "pt"
+      ? await import(`@/content/work/${slug}.pt.mdx`).catch(() => import(`@/content/work/${slug}.mdx`))
+      : await import(`@/content/work/${slug}.mdx`);
     Content = mod.default;
   } catch {
     notFound();
@@ -56,7 +64,7 @@ export default async function ProjectPage({ params, }: { params: Promise<{ slug:
           <span className="transition-transform duration-300 group-hover:-translate-x-0.5">
             <ArrowLeft size={12} />
           </span>
-          back
+          {t("back")}
         </Link>
 
         {/* Header — full width */}
@@ -71,12 +79,12 @@ export default async function ProjectPage({ params, }: { params: Promise<{ slug:
             </h1>
             <span className="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground">
               <span className={`size-1.5 rounded-full ${status.dot}`} />
-              {status.label}
+              {statusT(project.status)}
             </span>
           </div>
 
           <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-            {project.description}
+            {getProjectDescription(project, locale)}
           </p>
         </header>
 

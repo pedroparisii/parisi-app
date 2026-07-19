@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   SiTypescript,
   SiJavascript,
@@ -33,13 +34,14 @@ const langs: Lang[] = [
 ];
 
 export function LanguagesRow() {
+  const t = useTranslations("LanguagesRow");
   const [active, setActive] = useState(0);
   const activeLang = langs[active];
 
   return (
     <section className="flex flex-col gap-8">
       <div className="min-w-0">
-        <p className="text-md text-muted-foreground">I build with</p>
+        <p className="text-md text-muted-foreground">{t("iBuildWith")}</p>
         <p key={activeLang.name} className="mt-1 animate-in fade-in slide-in-from-bottom-1 text-4xl font-medium tracking-tight duration-300">
           {activeLang.name}
         </p>

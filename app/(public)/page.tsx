@@ -1,4 +1,5 @@
 export const dynamic = "force-dynamic";
+import { getTranslations } from "next-intl/server";
 import { Hero } from "@/components/home/hero";
 import { FeaturedProject } from "@/components/home/featured-project";
 import { ChangelogPreview } from "@/components/home/changelog-preview";
@@ -8,14 +9,15 @@ import { SpotifyNowPlaying } from "@/components/home/spotify-now-playing";
 import { LanguagesRow } from "@/components/layout/languages-row";
 
 
-export default function Home() {
+export default async function Home() {
+  const t = await getTranslations("Home");
   return (
     <main className="mx-auto max-w-310 px-6 ">
       <Hero />
 
       {/* Bento grid */}
       <section
-        aria-label="Highlights"
+        aria-label={t("highlightsAria")}
         className="grid grid-cols-1 gap-4 pt-14 pb-4 md:grid-cols-6">
 
         <div className="md:col-span-4">

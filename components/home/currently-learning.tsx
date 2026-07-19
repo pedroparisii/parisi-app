@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { BentoCard, CardText, Em } from "./bento-card";
 import { cn } from "@/lib/utils";
 
@@ -21,9 +22,10 @@ const statusDot: Record<SkillStatus, string> = {
 };
 
 export function CurrentlyLearning() {
+  const t = useTranslations("CurrentlyLearning");
   return (
     <BentoCard
-      label="~/currently-learning"
+      label={t("label")}
       glow
       icon={
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -33,7 +35,7 @@ export function CurrentlyLearning() {
       className="min-h-52"
     >
       <CardText>
-        Always <Em>learning in public</Em>, the board updates as I go.
+        {t.rich("text", { em: (chunks) => <Em>{chunks}</Em> })}
       </CardText>
 
       <div className="mt-4 flex flex-wrap gap-1.5">

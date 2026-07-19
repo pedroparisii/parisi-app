@@ -3,17 +3,18 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { DiscordAvatar } from "@/components/discord/discord-avatar";
 import { ThemeToggle } from "@/components/layout/theme-toogle";
+import { LocaleSwitcher } from "@/components/layout/locale-switcher";
 import { useTheme } from "next-themes";
 
-
-const navItems = [
-  { label: "works", href: "/work" },
-  { label: "about me", href: "/about" },
-];
-
 export default function Header() {
+  const t = useTranslations("Header");
+  const navItems = [
+    { label: t("navWork"), href: "/work" },
+    { label: t("navAbout"), href: "/about" },
+  ];
   const [open, setOpen] = useState(false);
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -30,7 +31,7 @@ export default function Header() {
       <div className="flex items-center justify-between h-20 px-8 max-w-7xl mx-auto">
 
         {/* LOGO */}
-        <Link href="/" aria-label="pedro.parisi — home" onClick={() => setOpen(false)}>
+        <Link href="/" aria-label={t("logoAriaLabel")} onClick={() => setOpen(false)}>
           <span className="group font-mono font-medium text-2xl inline-flex items-center select-none">
             <span className="max-w-0 opacity-0 text-primary transition-all duration-300 group-hover:max-w-4 group-hover:opacity-100 group-hover:mr-1.5">{"{"}</span>
 
@@ -60,15 +61,17 @@ export default function Header() {
             </Link>
           ))}
           <DiscordAvatar />
+          <LocaleSwitcher />
           <ThemeToggle />
         </nav>
 
         <div className="flex items-center gap-4 md:hidden">
-          <ThemeToggle /> 
+          <LocaleSwitcher />
+          <ThemeToggle />
           {/* HAMBURGER (mobile only) */}
           <button
             onClick={() => setOpen((v) => !v)}
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? t("closeMenu") : t("openMenu")}
             aria-expanded={open}
             className="md:hidden relative flex h-10 w-10 flex-col items-center justify-center gap-1.5"
           >

@@ -1,18 +1,22 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useDiscordStatus } from "./use-discord";
 
-const status = {
-  online: { color: "bg-[#23a55a]", label: "Online" },
-  idle: { color: "bg-[#f0b232]", label: "Idle" },
-  dnd: { color: "bg-[#f23f43]", label: "Do not disturb" },
-  offline: { color: "bg-[#80848e]", label: "Offline" },
+const statusColor = {
+  online: "bg-[#23a55a]",
+  idle: "bg-[#f0b232]",
+  dnd: "bg-[#f23f43]",
+  offline: "bg-[#80848e]",
 } as const;
 
 export function DiscordAvatar() {
+  const t = useTranslations("Discord");
   const data = useDiscordStatus();
-  const { color, label } = status[data?.discord_status ?? "offline"];
+  const key = data?.discord_status ?? "offline";
+  const color = statusColor[key];
+  const label = t(key);
 
   return (
     <div className="group flex items-center">

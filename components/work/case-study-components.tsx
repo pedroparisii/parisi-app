@@ -10,13 +10,16 @@ import Image from "next/image";
 export function Callout({
   children,
   label = "note",
+  icon,
 }: {
   children: React.ReactNode;
   label?: string;
+  icon?: React.ReactNode;
 }) {
   return (
     <aside className="my-6 rounded-lg border border-border bg-card p-5">
-      <p className="mb-2 font-mono text-xs uppercase tracking-wider text-primary">
+      <p className="mb-2 font-mono text-xs uppercase tracking-wider text-primary flex items-center gap-2">
+        {icon}
         {label}
       </p>
       <div className="text-sm leading-relaxed text-muted-foreground [&>p]:mb-0">

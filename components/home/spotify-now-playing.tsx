@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { FaSpotify } from "react-icons/fa";
 import { BentoCard } from "./bento-card";
 import type { Track } from "@/lib/spotify";
 
 export function SpotifyNowPlaying() {
+  const t = useTranslations("Spotify");
   const [track, setTrack] = useState<Track | null>(null);
   const [loaded, setLoaded] = useState(false);
 
@@ -39,7 +41,7 @@ export function SpotifyNowPlaying() {
 
   return (
     <BentoCard
-      label="~/my-spotify"
+      label={t("label")}
       href={track?.songUrl}
       interactive={!!track?.songUrl}
       icon={<FaSpotify className="text-[#1DB954]" />}
@@ -96,12 +98,12 @@ export function SpotifyNowPlaying() {
                   <>
                     <SoundBars />
                     <span className="font-mono text-[10px] uppercase tracking-wider text-primary">
-                      now listening
+                      {t("nowListening")}
                     </span>
                   </>
                 ) : (
                   <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-                    last played
+                    {t("lastPlayed")}
                   </span>
                 )}
               </div>
@@ -115,10 +117,10 @@ export function SpotifyNowPlaying() {
           ) : (
             <>
               <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-                offline
+                {t("offline")}
               </span>
               <p className="mt-1.5 text-sm text-muted-foreground">
-                Nothing to show right now
+                {t("nothingToShow")}
               </p>
             </>
           )}

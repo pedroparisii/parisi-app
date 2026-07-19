@@ -1,0 +1,62 @@
+## Visão Geral
+
+Smart Shelf é um web app full-stack de acompanhamento de leitura, inspirado no Goodreads. Foi construído para praticar arquitetura real, integração de backend, consumo de APIs e dados autenticados de usuário.
+
+O projeto permite que usuários descubram novos livros, organizem suas estantes pessoais e acompanhem sua jornada de leitura de forma fluida.
+
+<Stats items={[
+  { value: "Tempo real", label: "Busca de livros" },
+  { value: "Open Library", label: "Integração de API" },
+  { value: "100%", label: "Arquitetura limpa" },
+]} />
+
+## Funcionalidades
+
+O produto foi desenhado com forte foco em experiência do usuário e dados consistentes:
+
+- 🔍 **Busca de livros** — Busca em tempo real com parâmetros de URL, links compartilháveis e ordenação no servidor.
+- 📚 **Estante pessoal** — Salve livros com status de Lendo, Salvo ou Lido.
+- 📝 **Notas** — Escreva e persista notas personalizadas por livro.
+- 📊 **Estatísticas de leitura** — Acompanhe sua meta anual e seu progresso de leitura.
+- 🏆 **Conquistas** — Desbloqueie badges com base na sua atividade real de leitura.
+- 🔐 **Autenticação** — Cadastro por email/senha com um fluxo de onboarding em múltiplas etapas.
+- 🌙 **Modo claro/escuro** — Preferência visual persistida entre sessões.
+
+<Callout label="Fonte dos dados">
+Todos os dados de livros vêm da [Open Library API](https://openlibrary.org/developers/api), um catálogo livre e aberto mantido pelo Internet Archive.
+</Callout>
+
+## Stack Técnica & Arquitetura
+
+<div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="TailwindCSS" />
+  <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
+  <img src="https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=white" alt="shadcn/ui" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white" alt="React Router" />
+</div>
+
+O projeto segue uma separação clara de responsabilidades, estruturada em três camadas principais:
+
+- **`src/lib/`** — Clientes de API e consultas ao banco de dados (`openLibrary.js`, `userBooks.js`, `supabase.js`).
+- **`src/hooks/`** — Toda a lógica de estado global e reativo (`useBookSearch`, `useAuth`, `useProfile`, `useUserBook`).
+- **`src/pages/` + `src/components/`** — Camada de UI pura, mantida totalmente livre de lógica de negócio complexa.
+
+Para otimizar a performance, os resultados de busca são cacheados em memória para minimizar a sobrecarga de chamadas externas à API. Além disso, os metadados dos livros são cacheados no Supabase assim que salvos na estante do usuário, evitando requisições repetidas a terceiros.
+
+<Figure
+  src={"/works/smartshelf-preview2.png"}
+  alt="Smart Shelf Preview"
+  caption="Página de perfil do usuário com conquistas, metas e mais..."
+/>
+
+## Desafios & Aprendizados
+
+Como meu primeiro projeto full-stack publicado, lidar com o desenvolvimento de ponta a ponta me apresentou a problemas reais de infraestrutura:
+
+**Permissões do Postgres & RLS do Supabase:** Durante o desenvolvimento, consultas de usuários autenticados retornavam um erro `403 Forbidden` mesmo enviando tokens de autenticação válidos. Descobri que o problema vinha da falta de permissões `GRANT` explícitas na role `authenticated` do banco de dados, que opera junto com as políticas de Row Level Security (RLS). Resolver isso me deu uma base sólida em segurança no nível de banco de dados.
+
+**Migração de API no meio do projeto:** Inicialmente integrei a Google Books API. No entanto, ela retornava uma quantidade avassaladora de resultados de baixa qualidade (como documentos legais e artigos acadêmicos) e não tinha um sinal de popularidade confiável. Migrei para a **Open Library API**, aproveitando a métrica `readinglog_count` e parâmetros nativos de ordenação, o que melhorou drasticamente a relevância da busca e a qualidade geral do produto.
+
+> IA foi utilizada ao longo do projeto como parceira de pair programming para decisões arquiteturais e revisões de código. No entanto, todas as decisões de produto, design de UI/UX e a implementação final foram feitas de forma independente.

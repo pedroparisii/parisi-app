@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { SiGithub, SiX } from "react-icons/si";
 import { BsLinkedin } from "react-icons/bs";
 
@@ -15,6 +16,7 @@ const socials = [
 ];
 
 export default function Footer() {
+  const t = useTranslations("Footer");
   return (
     <footer className="border-t border-border mt-24">
       <div className="max-w-7xl mx-auto px-8 py-10 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
@@ -29,7 +31,7 @@ export default function Footer() {
             </span>
           </Link>
           <p className="font-mono text-xs text-muted-foreground">
-            built from scratch
+            {t("builtFromScratch")}
           </p>
         </div>
 
@@ -57,7 +59,7 @@ export default function Footer() {
               <span className="absolute inline-flex h-full w-full rounded-full bg-[#10b95c] opacity-75 animate-ping" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#10b95c]" />
             </span>
-            all systems operational
+            {t("allSystemsOperational")}
           </span>
         </div>
       </div>

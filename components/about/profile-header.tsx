@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +19,7 @@ const statusColor = {
 } as const;
 
 export function ProfileHeader() {
+  const t = useTranslations("About");
   const data = useDiscordStatus();
   const color = statusColor[data?.discord_status ?? "offline"];
 
@@ -39,7 +41,7 @@ export function ProfileHeader() {
             {profile.name}
           </h1>
           <p className="font-mono text-sm text-muted-foreground">
-            {profile.role} · {profile.location}
+            {t("role")} · {t("location")}
           </p>
         </div>
       </div>

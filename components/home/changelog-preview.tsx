@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { BentoCard } from "./bento-card";
 import { cn } from "@/lib/utils";
 import { PixelGrid } from "@/components/home/pixel-card";
@@ -9,27 +10,23 @@ interface ChangelogEntry {
   text: string;
 }
 
-const entries: ChangelogEntry[] = [
-  { type: "new", text: "Added dedicated project pages" },
-  { type: "improvement", text: "Refined the header interactions" },
-  { type: "fix", text: "Adjusted contrast in dark mode" },
-];
-
 const typeStyles: Record<ChangeType, string> = {
   new: "bg-primary text-primary-foreground border-transparent",
   improvement: "text-primary border-primary/30",
   fix: "text-muted-foreground border-border",
 };
 
-const typeLabel: Record<ChangeType, string> = {
-  new: "new",
-  improvement: "imp",
-  fix: "fix",
-};
-
 export function ChangelogPreview() {
+  const t = useTranslations("Changelog");
+  const entries = t.raw("entries") as ChangelogEntry[];
+  const typeLabel: Record<ChangeType, string> = {
+    new: t("typeNew"),
+    improvement: t("typeImprovement"),
+    fix: t("typeFix"),
+  };
+
   return (
-    <BentoCard label="~/changelog">
+    <BentoCard label={t("label")}>
       <ul className="flex flex-col gap-3">
         {entries.map((entry, i) => (
           <li key={i} className="flex items-start gap-2.5">
